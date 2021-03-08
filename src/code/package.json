@@ -1,0 +1,26 @@
+{
+  "name": "library",
+  "version": "1.0.0",
+  "description": "School project for database calss",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fliipzy/sd21w1-db.git"
+  },
+  "author": "Frederik Lundbeck Jørgensen, Wajid Ahmad",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fliipzy/sd21w1-db/issues"
+  },
+  "homepage": "https://github.com/Fliipzy/sd21w1-db#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^0.95.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.7",
+    "objection": "^2.2.14"
+  }
+}
