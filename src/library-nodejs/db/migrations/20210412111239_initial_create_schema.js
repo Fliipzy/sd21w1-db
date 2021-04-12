@@ -27,10 +27,11 @@ exports.up = function (knex) {
 		.createTable('material', table => {
 			table.increments('id').unsigned();
 			table.string('title').notNullable();
+			table.text('description').notNullable();
 			table.date('release_date').notNullable();
 			table.string('material_image_header');
 			table.integer('material_type_id').unsigned().notNullable();
-			table.integer('material_age_type_id').unsigned().notNullable();
+			table.integer('material_age_type_id').unsigned();
 			table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
 			table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 
@@ -95,10 +96,12 @@ exports.up = function (knex) {
 		.createTable('game', table => {
 			table.increments('id').unsigned();
 			table.integer('material_id').unsigned().notNullable();
+			table.integer('game_console_type_id').unsigned().notNullable();
 			table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
 			table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 
 			table.foreign('material_id').references('material.id');
+			table.foreign('game_console_type_id').references('game_console_type.id');
 		})
 		.createTable('user_role', table => {
 			table.increments('id').unsigned();
@@ -112,6 +115,14 @@ exports.up = function (knex) {
 			table.string('password').notNullable();
 			table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
 			table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+		})
+		.createTable('user__user_role', table => {
+			table.integer('user_id').unsigned().notNullable();
+			table.integer('role_id').unsigned().notNullable();
+
+			table.foreign('user_id').references('user.id');
+			table.foreign('role_id').references('user_role.id');
+			table.unique(['user_id', 'role_id']);
 		})
 		.createTable('user_information', table => {
 			table.increments('id').unsigned();
@@ -135,6 +146,9 @@ exports.up = function (knex) {
 
 exports.down = function (knex) {
 	return knex.schema
+		.dropTableIfExists('user__user_role')
+		.dropTableIfExists('material__creator')
+		.dropTableIfExists('material__genre')
 		.dropTableIfExists('user_retrieval')
 		.dropTableIfExists('user_information')
 		.dropTableIfExists('user')
@@ -144,8 +158,6 @@ exports.down = function (knex) {
 		.dropTableIfExists('movie')
 		.dropTableIfExists('movie_format_type')
 		.dropTableIfExists('book')
-		.dropTableIfExists('material__genre')
-		.dropTableIfExists('material__creator')
 		.dropTableIfExists('material_stock')
 		.dropTableIfExists('material')
 		.dropTableIfExists('material_age_type')

@@ -1,3 +1,6 @@
+# Config files
+src/library-nodejs/config/*.js
+
 # Logs
 logs
 *.log

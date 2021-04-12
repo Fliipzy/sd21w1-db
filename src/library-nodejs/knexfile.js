@@ -1,7 +1,5 @@
-const credentials = require("./config/mysqlCredentials.js")
-
+const credentials = require("./config/databaseConfig.js")
 const { knexSnakeCaseMappers } = require('objection');
-
 
 module.exports = {
 
@@ -12,7 +10,12 @@ module.exports = {
       user:     credentials.user,
       password: credentials.password,
       host: credentials.host
-      
+    },
+    seeds: {
+      directory: './db/seeds/'
+    },
+    migrations: {
+      directory: './db/migrations/'
     },
     ...knexSnakeCaseMappers()
   }
