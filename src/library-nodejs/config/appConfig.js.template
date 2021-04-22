@@ -1,0 +1,21 @@
+const appConfiguration = {
+	url: "http://localhost",
+	port: 3000,
+	bcryptConfiguration: {
+		saltRounds: 12,
+	},
+	sessionConfiguration: {
+		secret: "secret",
+		resave: false,
+		saveUninitialized: true
+	},
+	rateLimitConfiguration: {
+		windowMs: 15 * 60 * 1000,
+		max: 10
+	},
+	userRecoveryConfiguration: {
+		recoveryExpirationHours: 72
+	}
+}
+
+module.exports = appConfig;
