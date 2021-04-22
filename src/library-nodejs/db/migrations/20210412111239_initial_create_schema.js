@@ -113,6 +113,7 @@ exports.up = function (knex) {
 			table.increments('id').unsigned();
 			table.string('username').notNullable();
 			table.string('password').notNullable();
+			table.boolean('active').defaultTo(1).notNullable();
 			table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
 			table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 		})
