@@ -8,27 +8,27 @@ async function createUser(user = { username, password, userInformation: { birthD
 		user.loginCredentials.password = await bcrypt.hash(user.loginCredentials.password, bcryptConfig.saltRounds);
 
 		//Try inserting the user data with transaction
-		const newUserTrxResult = await Users.transaction(async trx => {
+		const trxResult = await Users.transaction(async trx => {
 			try {
-				//Insert user with user information 
+				//Insert with graph to handle both user & user_information in one call
 				const result = await Users.query(trx).insertGraph(user);
 
 				//Handle stuff here that needs to happen if user is successfully created
 				if (result) {
 					
 				}
-				
 				return result;
-
-			} catch (error) {
+			}
+			//Rollback transaction if an error occurs
+			catch (error) {
 				trx.rollback();
 			}
 		});
-
-		return newUserTrxResult;
+		return trxResult;
 
 	} catch (exception) {
 		console.log(exception);
+		return null;
 	}
 }
 
@@ -55,4 +55,12 @@ async function deactivateUserById(id) {
 		.patch({
 			active: 0
 		});
+}
+
+module.exports = {
+	createUser: createUser,
+	getAllUsers: getAllUsers,
+	getUserById: getUserById,
+	activateUserById: activateUserById,
+	deactivateUserById: deactivateUserById
 }
