@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-app.use(express.json()); //json middleware
+app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
 
@@ -11,7 +11,7 @@ const config = require("./config/appConfig.js");
 const session = require("express-session");
 app.use(session(config.sessionConfig));
 
-//knex configuration
+//knex & objection configuration
 const { Model } = require("objection");
 const Knex = require("knex");
 const knexfile = require("./knexfile.js");
