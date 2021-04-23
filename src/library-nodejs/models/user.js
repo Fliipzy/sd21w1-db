@@ -8,7 +8,7 @@ class User extends Model{
         const UserInformation = require("./UserInformation.js");
 
         return {
-            userInformation: {
+            information: {
                 relation: Model.HasOneRelation,
                 modelClass: UserInformation,
                 join: {

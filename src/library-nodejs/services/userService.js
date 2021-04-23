@@ -38,7 +38,7 @@ async function getUserById(id, ...relations) {
 	
 	// join specified relations
 	relations.forEach(relation => {
-		userQuery.joinRelated(relation);
+		userQuery.withGraphJoined(relation);
 	});
 
 	return await userQuery;
@@ -49,7 +49,7 @@ async function getAllUsers(...relations) {
 
 	//join specified relations
 	relations.forEach(relation => {
-		userQuery.joinRelated(relation);
+		userQuery.withGraphJoined(relation);
 	});
 
 	return await userQuery;
