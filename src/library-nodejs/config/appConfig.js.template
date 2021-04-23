@@ -1,19 +1,19 @@
-const appConfiguration = {
+const appConfig = {
 	url: "http://localhost",
 	port: 3000,
 	bcryptConfiguration: {
 		saltRounds: 12,
 	},
-	sessionConfiguration: {
+	sessionConfig: {
 		secret: "secret",
 		resave: false,
 		saveUninitialized: true
 	},
-	rateLimitConfiguration: {
+	rateLimitConfig: {
 		windowMs: 15 * 60 * 1000,
 		max: 10
 	},
-	userRecoveryConfiguration: {
+	userRecoveryConfig: {
 		recoveryExpirationHours: 72
 	}
 }

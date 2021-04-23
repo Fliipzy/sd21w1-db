@@ -4,6 +4,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
+app.set("view engine", "ejs");
 
 const config = require("./config/appConfig.js");
 
@@ -17,7 +18,6 @@ const Knex = require("knex");
 const knexfile = require("./knexfile.js");
 const knex = Knex(knexfile.development);
 Model.knex(knex);
-
 
 //route configuration
 app.use(require("./routes/controllers/index.js"));
