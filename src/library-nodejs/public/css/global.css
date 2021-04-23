@@ -1,0 +1,23 @@
+html {
+
+}
+
+body {
+    
+}
+
+/* navbar */
+
+.navbar-brand {
+    font-size: x-large;
+    align-items: center;
+    display: flex;
+}
+
+.navbar-icon {
+    margin-right: 0.5rem;
+}
+
+header {
+    margin-bottom: 2rem;
+}
