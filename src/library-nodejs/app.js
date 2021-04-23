@@ -21,6 +21,7 @@ Model.knex(knex);
 
 //route configuration
 app.use(require("./routes/controllers/index.js"));
+app.use(require("./routes/controllers/auth.js"));
 app.use(require("./routes/api/auth.js"));
 
 //setup middle routing for security (comment out for easier debugging)
