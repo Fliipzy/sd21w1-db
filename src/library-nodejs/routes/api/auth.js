@@ -13,7 +13,7 @@ router.post("/api/login", async (req, res) => {
 	const result = await authService.authenticate(username, password);
 	if (result) {
 		//Add user object to session
-		req.session.user = { id: null, roles: null };
+		req.session.user = { id: result.id, roles: result.roles };
 		return res.status(200).send({ response: true });
 	}
 

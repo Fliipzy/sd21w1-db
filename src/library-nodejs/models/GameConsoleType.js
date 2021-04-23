@@ -1,13 +1,22 @@
 const { Model } = require('objection');
 
-class Game_console_type extends Model{
+class GameConsoleType extends Model{
     static tableName = "game_console_type";
 
+    static get relationMappings() {
+        const Game = require("./Game.js");
+
+        return {
+            games: {
+                relation: Model.HasManyRelation,
+                modelClass: Game,
+                join: {
+                    from: "game_console_type.id",
+                    to: "game.game_console_type_id"
+                }
+            }
+        }
+    }
 };
-const knexfile = require('../knexfile');
-const knex = require('knex')({
-    client : knexfile.development.client,
-    connection : knexfile.development.connection
-});
-Game_console_type.knex(knex);
-module.exports = Game_console_type;
+
+module.exports = GameConsoleType;

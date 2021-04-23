@@ -1,13 +1,22 @@
 const { Model } = require('objection');
 
-class Material_age_type extends Model{
+class MaterialAgeType extends Model{
     static tableName = "material_age_type";
 
+    static get relationMappings() {
+        const Material = require("./Material.js");
+
+        return {
+            materials: {
+                relation: Model.HasManyRelation,
+                modelClass: Material,
+                join: {
+                    from: "material_age_type.id",
+                    to: "material.material_age_type_id"
+                }
+            }
+        }
+    }
 };
-const knexfile = require('../knexfile');
-const knex = require('knex')({
-    client : knexfile.development.client,
-    connection : knexfile.development.connection
-});
-Material_age_type.knex(knex);
-module.exports = Material_age_type;
+
+module.exports = MaterialAgeType;
