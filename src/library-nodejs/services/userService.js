@@ -1,4 +1,4 @@
-const Users = require("../models/User");
+const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const { bcryptConfig } = require("../config/appConfig.js");
 
@@ -8,10 +8,10 @@ async function createUser(user = { username, password, userInformation: { birthD
 		user.loginCredentials.password = await bcrypt.hash(user.loginCredentials.password, bcryptConfig.saltRounds);
 
 		//Try inserting the user data with transaction
-		const trxResult = await Users.transaction(async trx => {
+		const trxResult = await User.transaction(async trx => {
 			try {
 				//Insert with graph to handle both user & user_information in one call
-				const result = await Users.query(trx).insertGraph(user);
+				const result = await User.query(trx).insertGraph(user);
 
 				//Handle stuff here that needs to happen if user is successfully created
 				if (result) {
@@ -32,28 +32,46 @@ async function createUser(user = { username, password, userInformation: { birthD
 	}
 }
 
-async function getAllUsers() {
-	return await Users.query();
-}
-
-async function getUserById(id) {
-	return await Users.query()
+async function getUserById(id, ...relations) {
+	const userQuery = User.query()
 		.findById(id);
+	
+	// join specified relations
+	relations.forEach(relation => {
+		userQuery.joinRelated(relation);
+	});
+
+	return await userQuery;
 }
 
-async function activateUserById(id) {
-	return await Users.query()
+async function getAllUsers(...relations) {
+	const userQuery = User.query();
+
+	//join specified relations
+	relations.forEach(relation => {
+		userQuery.joinRelated(relation);
+	});
+
+	return await userQuery;
+}
+
+async function changeUserActiveStatusById(id, activeStatus) {
+	return await User.query()
 		.findById(id)
 		.patch({
-			active: 1
+			active: activeStatus
 		});
 }
 
-async function deactivateUserById(id) {
-	return await Users.query()
+async function changeUserPasswordById(id, password) {
+	// hash the new password
+	const newPassword = await bcrypt.hash(password, bcryptConfig.saltRounds);
+
+	// insert new password into the specified user
+	return await User.query()
 		.findById(id)
 		.patch({
-			active: 0
+			password: newPassword
 		});
 }
 
@@ -61,6 +79,6 @@ module.exports = {
 	createUser: createUser,
 	getAllUsers: getAllUsers,
 	getUserById: getUserById,
-	activateUserById: activateUserById,
-	deactivateUserById: deactivateUserById
+	changeUserActiveStatusById: changeUserActiveStatusById,
+	changeUserPasswordById: changeUserPasswordById
 }

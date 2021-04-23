@@ -1,7 +1,7 @@
 const appConfig = {
 	url: "http://localhost",
 	port: 3000,
-	bcryptConfiguration: {
+	bcryptConfig: {
 		saltRounds: 12,
 	},
 	sessionConfig: {
