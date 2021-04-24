@@ -56,7 +56,7 @@ async function getAllUsers(...relations) {
 }
 
 async function changeUserActiveStatusById(id, activeStatus) {
-	return await User.query()
+	return User.query()
 		.findById(id)
 		.patch({
 			active: activeStatus
@@ -68,7 +68,7 @@ async function changeUserPasswordById(id, password) {
 	const newPassword = await bcrypt.hash(password, bcryptConfig.saltRounds);
 
 	// insert new password into the specified user
-	return await User.query()
+	return User.query()
 		.findById(id)
 		.patch({
 			password: newPassword

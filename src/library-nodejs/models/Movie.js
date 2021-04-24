@@ -23,6 +23,18 @@ class Movie extends Model {
                     from: "movie.format_type_id",
                     to: "movie_format_type.id"
                 }
+            },
+            creators: {
+                relation: Model.ManyToManyRelation,
+                modelClass: Creator,
+                join: {
+                    from: "book.material_id",
+                    through: {
+                        from: "material__creator.material_id",
+                        to: "material__creator.creator_id"
+                    },
+                    to: "creator.id"
+                }
             }
         }
     }

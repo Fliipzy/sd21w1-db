@@ -23,6 +23,18 @@ class Game extends Model{
                     from: "game.game_console_type_id",
                     to: "game_console_type.id"
                 }
+            },
+            creators: {
+                relation: Model.ManyToManyRelation,
+                modelClass: Creator,
+                join: {
+                    from: "game.material_id",
+                    through: {
+                        from: "material__creator.material_id",
+                        to: "material__creator.creator_id"
+                    },
+                    to: "creator.id"
+                }
             }
         }
     }
