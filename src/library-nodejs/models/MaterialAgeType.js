@@ -1,4 +1,4 @@
-const { Model } = require('objection');
+const { Model } = require("objection");
 
 class MaterialAgeType extends Model{
     static tableName = "material_age_type";

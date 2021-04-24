@@ -1,4 +1,4 @@
-const { Model } = require('objection');
+const { Model } = require("objection");
 
 class Creator extends Model{
     static tableName = "creator";
