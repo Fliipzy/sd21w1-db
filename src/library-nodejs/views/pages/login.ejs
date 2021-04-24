@@ -1,9 +1,12 @@
 <%- include("../partials/head", { title: "eLibrary | Login" }); %>
 <%- include("../partials/header"); %>
 
-<div id="loginCardForm" class="card">
+<div id="loginCard" class="card">
+    <div class="card-header">
+        Login
+    </div>
     <div class="card-body">
-        <form>
+        <form id="loginForm">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Username</label>
                 <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -13,8 +16,14 @@
                 <label for="exampleInputPassword1" class="form-label">Password</label>
                 <input type="password" class="form-control" id="exampleInputPassword1">
             </div>
+            <div class="text-center">
+                Not registered? <a href="/signup">Create an account</a>
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+    </div>
+    <div class="card-footer text-center">
+        <a href="/forgot">Forgot password?</a>
     </div>
 </div>
 
@@ -22,7 +31,12 @@
 
 <script>
     $(document).ready(() => {
-        alert('hello');
+        
+        //prevent login form from refreshing
+        $("#loginForm").submit(e => {
+            e.preventDefault();
+        });
+
     });
 </script>
 

@@ -41,7 +41,7 @@ async function getUserById(id, ...relations) {
 		userQuery.withGraphJoined(relation);
 	});
 
-	return await userQuery;
+	return userQuery;
 }
 
 async function getAllUsers(...relations) {
@@ -52,7 +52,7 @@ async function getAllUsers(...relations) {
 		userQuery.withGraphJoined(relation);
 	});
 
-	return await userQuery;
+	return userQuery;
 }
 
 async function changeUserActiveStatusById(id, activeStatus) {

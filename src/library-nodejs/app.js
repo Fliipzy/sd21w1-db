@@ -34,6 +34,10 @@ app.use(require("./routes/api/auth.js"));
 
 app.use(require("./routes/api/materials.js"));
 app.use(require("./routes/api/users.js"));
+app.use(require("./routes/api/books.js"));
+app.use(require("./routes/api/movies.js"));
+app.use(require("./routes/api/games.js"));
+
 
 const serverPort = config.port;
 

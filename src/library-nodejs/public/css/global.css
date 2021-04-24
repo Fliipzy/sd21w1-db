@@ -1,9 +1,11 @@
-html {
+html, body {
 
 }
 
-body {
-    
+/* common */
+
+.text-center {
+    text-align: center;
 }
 
 /* navbar */
@@ -20,4 +22,12 @@ body {
 
 header {
     margin-bottom: 2rem;
+}
+
+/* login form */
+
+#loginCard {
+    margin-right: auto;
+    margin-left: auto;
+    width: 30rem;
 }
