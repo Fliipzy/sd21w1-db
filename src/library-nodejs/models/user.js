@@ -27,6 +27,9 @@ class User extends Model{
                     },
                     to: "user_role.id"
                 }
+            },
+            rents: {
+                
             }
         }
     }

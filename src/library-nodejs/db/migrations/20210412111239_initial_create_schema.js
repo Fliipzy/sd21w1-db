@@ -14,7 +14,7 @@ exports.up = function (knex) {
 		.createTable('material_type', table => {
 			table.increments('id').unsigned();
 			table.string('name').notNullable();
-			table.integer('loan_time').unsigned().notNullable();
+			table.integer('loan_time_days').unsigned().notNullable();
 			table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
 			table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 		})
@@ -61,7 +61,7 @@ exports.up = function (knex) {
 
 			table.foreign('material_id').references('material.id');
 			table.foreign('creator_id').references('creator.id');
-			table.unique(['material_id', 'creator_id']);
+			table.primary(['material_id', 'creator_id']);
 		})
 		.createTable('book', table => {
 			table.increments('id').unsigned();
@@ -123,7 +123,7 @@ exports.up = function (knex) {
 
 			table.foreign('user_id').references('user.id');
 			table.foreign('role_id').references('user_role.id');
-			table.unique(['user_id', 'role_id']);
+			table.primary(['user_id', 'role_id']);
 		})
 		.createTable('user_information', table => {
 			table.increments('id').unsigned();
@@ -142,11 +142,28 @@ exports.up = function (knex) {
 			table.boolean('used').defaultTo(1).notNullable();
 			table.integer('user_id').unsigned().notNullable();
 			table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
+		})
+		.createTable('loan', table => {
+			table.increments('id').unsigned();
+			table.integer('user_id').unsigned().notNullable();
+			table.date('due_date').notNullable();
+			table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
+			table.foreign('user_id').references('user.id');
+		})
+		.createTable('material__loan', table => {
+			table.integer('material_id').unsigned();
+			table.integer('loan_id').unsigned();
+
+			table.foreign('material_id').references('material.id');
+			table.foreign('loan_id').references('loan.id');
+			table.primary(['material_id', 'loan_id']);
 		});
 };
 
 exports.down = function (knex) {
 	return knex.schema
+		.dropTableIfExists('material__loan')
+		.dropTableIfExists('loan')
 		.dropTableIfExists('user__user_role')
 		.dropTableIfExists('material__creator')
 		.dropTableIfExists('material__genre')

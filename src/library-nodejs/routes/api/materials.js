@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const materialService = require("../../services/materialService.js");
 
 router.get("/api/materials", (req, res) => {
 

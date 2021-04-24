@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const gameService = require("../../services/gameService.js");
 
 router.get("/api/games", (req, res) => {
 
