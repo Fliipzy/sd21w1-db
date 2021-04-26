@@ -13,7 +13,7 @@ router.get("/api/users", async (req, res) => {
     return res.json(users);
 });
 
-router.get("/api/users/:id", (req, res) => {
+router.get("/api/users/:id", async (req, res) => {
     const {id} = req.params;
     const user = await userService.getUserById(id);
 
@@ -26,7 +26,7 @@ router.get("/api/users/:id", (req, res) => {
     return res.status(404).json(user);
 });
 
-router.post("/api/users", (req, res) => {
+router.post("/api/users", async (req, res) => {
     // get user object from body
     const {user} = req.body;
     const result = await userService.createUser(user);

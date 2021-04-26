@@ -80,7 +80,7 @@ exports.up = function (knex) {
 		})
 		.createTable('movie', table => {
 			table.increments('id').unsigned();
-			table.time('length').notNullable();
+			table.string('length').notNullable();
 			table.integer('format_type_id').unsigned().notNullable();
 			table.integer('material_id').unsigned().notNullable();
 			table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
