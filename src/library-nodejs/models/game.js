@@ -9,7 +9,7 @@ class Game extends Model{
 
         return {
             material: {
-                relation: Model.HasOneRelation,
+                relation: Model.BelongsToOneRelation,
                 modelClass: Material,
                 join: {
                     from: "game.material_id",

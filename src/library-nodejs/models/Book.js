@@ -9,7 +9,7 @@ class Book extends Model {
         
         return {
             material: {
-                relation: Model.HasOneRelation,
+                relation: Model.BelongsToOneRelation,
                 modelClass: Material,
                 join: {
                     from: "book.material_id",

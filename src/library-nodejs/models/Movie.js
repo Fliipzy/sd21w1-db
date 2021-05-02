@@ -9,7 +9,7 @@ class Movie extends Model {
 
         return {
             material: {
-                relation: Model.HasOneRelation,
+                relation: Model.BelongsToOneRelation,
                 modelClass: Material,
                 join: {
                     from: "movie.material_id",

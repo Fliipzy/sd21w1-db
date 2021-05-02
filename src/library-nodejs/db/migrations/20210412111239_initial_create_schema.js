@@ -1,9 +1,10 @@
+const databaseConfig = require('../../config/databaseConfig');
 
 exports.up = function (knex) {
 	return knex.schema
 		.createTable('creator', table => {
 			table.increments('id').unsigned();
-			table.string('name').notNullable();
+			table.string('name').unique().notNullable();
 			table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
 			table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 		})
