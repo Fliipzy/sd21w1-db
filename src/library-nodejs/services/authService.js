@@ -8,12 +8,12 @@ async function authenticate(username, password) {
 		let user = await Users.query()
 			.first()
 			.where("username", username)
-			.andWhere("active", 1)
-		
+			.andWhere("active", 1);
+
 		if (user) {
 			// compare hashed passwords
 			let bcryptResult = await bcrypt.compare(password, user.password);
-	
+
 			// if passwords matched
 			if (bcryptResult) {
 				// fetch user roles for authenticated user

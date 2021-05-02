@@ -2,10 +2,11 @@ const { Model } = require("objection");
 
 class User extends Model{
     static tableName = "user";
-
+    
     static get relationMappings() {
         const UserRole = require("./UserRole.js");
         const UserInformation = require("./UserInformation.js");
+        const Loan = require("./Loan.js");
 
         return {
             information: {
@@ -28,8 +29,13 @@ class User extends Model{
                     to: "user_role.id"
                 }
             },
-            rents: {
-                
+            loans: {
+                relation: Model.HasManyRelation,
+                modelClass: Loan,
+                join: {
+                    from: "user.id",
+                    to: "loan.user_id"
+                }
             }
         }
     }
