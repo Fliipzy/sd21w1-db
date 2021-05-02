@@ -1,5 +1,6 @@
 const Book = require("../models/Book.js");
 const Creator = require("../models/Creator.js");
+const Material = require("../models/Material.js");
 const User = require("../models/User.js");
 
 async function createBook(book = { material: { title, description, releaseDate, materialTypeId }, creators: {}, isbn13, pages, edition, materialId }) {
@@ -23,7 +24,7 @@ async function createBook(book = { material: { title, description, releaseDate, 
 
         const trxResult = await Book.transaction(async trx => {
             try {
-                const result = await Book.query(trx).insertGraph(book, { relate: true });
+                const result = await Book.query(trx).insertGraph(book, {relate: true});
                 return result;
             } catch (error) {
                 trx.rollback();
@@ -57,7 +58,7 @@ async function getBookById(id, ...relations) {
         bookQuery.withGraphJoined(relation);
     });
 
-    return bookQuery;
+    return await bookQuery;
 }
 
 async function updateBookById(id, book) {
@@ -71,8 +72,12 @@ async function updateBookById(id, book) {
 }
 
 async function deleteBookById(id) {
-    const result = await Book.query()
-        .deleteById(id);
+    const book = await Book.query()
+        .findById(id);
+    
+    const result = await Material.query()
+        .delete()
+        .where('id', book.materialId);
 
     return result;
 }

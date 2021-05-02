@@ -4,22 +4,23 @@ const { bcryptConfig } = require("../config/appConfig.js");
 
 async function createUser(user = { username, password, userInformation: { birthDate, email, phoneNumber }}) {
 	try {
-		//Hash password
+		// hash password
 		user.loginCredentials.password = await bcrypt.hash(user.loginCredentials.password, bcryptConfig.saltRounds);
 
-		//Try inserting the user data with transaction
+		// try inserting the user data with transaction
 		const trxResult = await User.transaction(async trx => {
 			try {
-				//Insert with graph to handle both user & user_information in one call
-				const result = await User.query(trx).insertGraph(user);
+				// insert with graph to handle both user & user_information in one call
+				const result = await User.query(trx)
+					.insertGraph(user);
 
-				//Handle stuff here that needs to happen if user is successfully created
+				// handle stuff here that needs to happen if user is created successfully
 				if (result) {
 					
 				}
 				return result;
 			}
-			//Rollback transaction if an error occurs
+			// rollback transaction if an error occurs
 			catch (error) {
 				trx.rollback();
 			}

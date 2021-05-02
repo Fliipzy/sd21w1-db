@@ -1,11 +1,12 @@
 const { Model } = require("objection");
+const Material = require("./Material.js");
+const Creator = require("./Creator.js");
 
 class Book extends Model {
     static tableName = "book";
     
     static get relationMappings() {
-        const Material = require("./Material.js");
-        const Creator = require("./Creator.js");
+
         
         return {
             material: {

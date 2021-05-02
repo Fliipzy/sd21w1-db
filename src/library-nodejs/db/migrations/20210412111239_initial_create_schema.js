@@ -38,6 +38,8 @@ exports.up = function (knex) {
 
 			table.foreign('material_type_id').references('material_type.id');
 			table.foreign('material_age_type_id').references('material_age_type.id');
+
+			table.unique(['title', 'material_type_id']);
 		})
 		.createTable('material_stock', table => {
 			table.increments('id').unsigned();
@@ -60,8 +62,8 @@ exports.up = function (knex) {
 			table.integer('material_id').unsigned().notNullable();
 			table.integer('creator_id').unsigned().notNullable();
 
-			table.foreign('material_id').references('material.id');
-			table.foreign('creator_id').references('creator.id');
+			table.foreign('material_id').references('material.id').onDelete("CASCADE");
+			table.foreign('creator_id').references('creator.id').onDelete("CASCADE");
 			table.primary(['material_id', 'creator_id']);
 		})
 		.createTable('book', table => {
@@ -73,7 +75,7 @@ exports.up = function (knex) {
 			table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
 			table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 
-			table.foreign('material_id').references('material.id');
+			table.foreign('material_id').references('material.id').onDelete("CASCADE");
 		})
 		.createTable('movie_format_type', table => {
 			table.increments('id').unsigned();
