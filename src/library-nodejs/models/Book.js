@@ -6,8 +6,6 @@ class Book extends Model {
     static tableName = "book";
     
     static get relationMappings() {
-
-        
         return {
             material: {
                 relation: Model.BelongsToOneRelation,

@@ -1,12 +1,12 @@
 const { Model } = require("objection");
+const Material = require("./Material.js");
+const MovieFormatType = require("./MovieFormatType.js");
+const Creator = require("./Creator.js");
 
 class Movie extends Model {
     static tableName = "movie";
     
     static get relationMappings() {
-        const Material = require("./Material.js");
-        const MovieFormatType = require("./MovieFormatType.js");
-
         return {
             material: {
                 relation: Model.BelongsToOneRelation,
@@ -28,7 +28,7 @@ class Movie extends Model {
                 relation: Model.ManyToManyRelation,
                 modelClass: Creator,
                 join: {
-                    from: "book.material_id",
+                    from: "movie.material_id",
                     through: {
                         from: "material__creator.material_id",
                         to: "material__creator.creator_id"

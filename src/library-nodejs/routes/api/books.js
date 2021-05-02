@@ -14,10 +14,10 @@ router.get("/api/books/:id", async (req, res) => {
 });
 
 router.post("/api/books", async (req, res) => {
-    const { isbn13, pages, edition, creators, title, description, releaseDate,
+    let { isbn13, pages, edition, creators, title, description, releaseDate,
             materialImageHeader } = req.body;
 
-    const book = {
+    let book = {
         isbn13: isbn13,
         pages: pages,
         edition: edition,
@@ -25,6 +25,7 @@ router.post("/api/books", async (req, res) => {
             title: title,
             description: description,
             releaseDate: new Date(releaseDate),
+            materialTypeId: 1,
             materialImageHeader: materialImageHeader
         },
         creators: creators

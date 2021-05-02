@@ -1,12 +1,12 @@
 const { Model } = require("objection");
+const Material = require("./Material.js");
+const GameConsoleType = require("./GameConsoleType.js");
+const Creator = require("./Creator.js");
 
 class Game extends Model{
     static tableName = "game";
 
     static get relationMappings() {
-        const Material = require("./Material.js");
-        const GameConsoleType = require("./GameConsoleType.js");
-
         return {
             material: {
                 relation: Model.BelongsToOneRelation,

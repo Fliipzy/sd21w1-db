@@ -6,8 +6,6 @@ const User = require("../models/User.js");
 async function createBook(book = { material: { title, description, releaseDate, materialTypeId }, creators: {}, isbn13, pages, edition, materialId }) {
     try {
 
-        book.material.materialTypeId = 1;
-
         /*  im sure this is not the smartest way of making sure that each creator doesn't 
             contain the name property IF that creator already exists in the DB. (creator.name 
             varchar column is unique)
