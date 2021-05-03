@@ -1,5 +1,6 @@
 const Movie = require("../models/Movie.js");
 const Creator = require("../models/Creator.js");
+const Material = require("../models/Material.js");
 
 async function createMovie(movie = { length, formatTypeId, material: { title, description, releaseDate, materialTypeId, materialImageHeader }, creators: {} }) {
     try {

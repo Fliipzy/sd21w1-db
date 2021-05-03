@@ -1,5 +1,6 @@
 const Game = require("../models/Game.js");
 const Creator = require("../models/Creator.js");
+const Material = require("../models/Material.js");
 
 async function createGame(game = { gameConsoleTypeId, material: { title, description, releaseDate, materialTypeId }, creators: {} }) {
     try {
@@ -67,12 +68,14 @@ async function updateGameById(id, game) {
 }
 
 async function deleteGameById(id) {
-    const book = await Game.query()
+    const game = await Game.query()
         .findById(id);
+    
+    console.log(game);
     
     const result = await Material.query()
         .delete()
-        .where('id', book.materialId);
+        .where('id', game.materialId);
 
     return result;
 }

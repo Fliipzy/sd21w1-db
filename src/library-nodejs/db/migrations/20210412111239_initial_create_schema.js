@@ -48,14 +48,14 @@ exports.up = function (knex) {
 			table.integer('material_id').unsigned().notNullable();
 			table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 
-			table.foreign('material_id').references('material.id');
+			table.foreign('material_id').references('material.id').onDelete("CASCADE");
 		})
 		.createTable('material__genre', table => {
 			table.integer('material_id').unsigned().notNullable();
 			table.integer('genre_id').unsigned().notNullable();
 
-			table.foreign('material_id').references('material.id');
-			table.foreign('genre_id').references('genre.id');
+			table.foreign('material_id').references('material.id').onDelete("CASCADE");
+			table.foreign('genre_id').references('genre.id').onDelete("CASCADE");
 			table.unique(['material_id', 'genre_id']);
 		})
 		.createTable('material__creator', table => {
@@ -157,8 +157,8 @@ exports.up = function (knex) {
 			table.integer('material_id').unsigned();
 			table.integer('loan_id').unsigned();
 
-			table.foreign('material_id').references('material.id');
-			table.foreign('loan_id').references('loan.id');
+			table.foreign('material_id').references('material.id').onDelete("CASCADE");
+			table.foreign('loan_id').references('loan.id').onDelete("CASCADE");
 			table.primary(['material_id', 'loan_id']);
 		});
 };
