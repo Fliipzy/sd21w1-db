@@ -90,7 +90,7 @@ exports.up = function (knex) {
 			table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 
 			table.foreign('format_type_id').references('movie_format_type.id');
-			table.foreign('material_id').references('material.id');
+			table.foreign('material_id').references('material.id').onDelete("CASCADE");
 		})
 		.createTable('game_console_type', table => {
 			table.increments('id').unsigned();
@@ -103,7 +103,7 @@ exports.up = function (knex) {
 			table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
 			table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 
-			table.foreign('material_id').references('material.id');
+			table.foreign('material_id').references('material.id').onDelete("CASCADE");
 			table.foreign('game_console_type_id').references('game_console_type.id');
 		})
 		.createTable('user_role', table => {
