@@ -32,6 +32,8 @@ app.use(require("./routes/api/auth.js"));
     next();
 });*/
 
+
+
 app.use(require("./routes/api/materials.js"));
 app.use(require("./routes/api/users.js"));
 app.use(require("./routes/api/books.js"));
@@ -39,6 +41,12 @@ app.use(require("./routes/api/movies.js"));
 app.use(require("./routes/api/games.js"));
 
 const serverPort = config.port;
+
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(serverPort, (error) => {
 	if (error) {

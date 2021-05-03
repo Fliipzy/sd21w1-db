@@ -1,0 +1,654 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Library",
+    "description": "TODO: Add Description",
+    "contact": {}
+  },
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/books/{bookId}": {
+      "get": {
+        "description": "",
+        "summary": "Get book",
+        "tags": [
+          "Books"
+        ],
+        
+        "operationId": "Getbook",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+          "in": "path",
+          "name": "bookId",
+          "type": "integer",
+          "required": true,
+          "description": "Book Id"
+        }
+      ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "summary": "Update book",
+        "tags": [
+          "Books"
+        ],
+        "operationId": "Updatebook",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+          "name": "bookId",
+          "type": "integer",
+          "required": true,
+          "description": "Book Id"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UpdatebookRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "summary": "Delete book",
+        "tags": [
+          "Books"
+        ],
+        "operationId": "Deletebook",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+          "name": "bookId",
+          "type": "integer",
+          "required": true,
+          "description": "Book Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/books": {
+      "get": {
+        "description": "",
+        "summary": "Get all books",
+        "tags": [
+          "Books"
+        ],
+        "operationId": "Getallbooks",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "summary": "Create book",
+        "tags": [
+          "Books"
+        ],
+        "operationId": "Createbook",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CreatebookRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    
+    "/movies/{movieId}": {
+      "get": {
+        "description": "",
+        "summary": "Get movie",
+        "tags": [
+          "Movies"
+        ],
+        "operationId": "Getmovie",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "movieId",
+            "type": "integer",
+            "required": true,
+            "description": "Movie Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "summary": "Update book",
+        "tags": [
+          "Movies"
+        ],
+        "operationId": "PutUpdatebook",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+          "name": "movieId",
+          "type": "integer",
+          "required": true,
+          "description": "Movie id"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UpdatebookRequest1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "summary": "Delete movie",
+        "tags": [
+          "Movies"
+        ],
+        "operationId": "Deletemovie",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "movieId",
+            "type": "integer",
+            "required": true,
+            "description": "Movie Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/movies": {
+      "get": {
+        "description": "",
+        "summary": "Get all movies",
+        "tags": [
+          "Movies"
+        ],
+        "operationId": "Getallmovies",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "summary": "Create movie",
+        "tags": [
+          "Movies"
+        ],
+        "operationId": "Createmovie",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CreatemovieRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/games/{gameId}": {
+      "get": {
+        "description": "",
+        "summary": "Get game",
+        "tags": [
+          "Games"
+        ],
+        "operationId": "Getgame",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "gameId",
+            "type": "integer",
+            "required": true,
+            "description": "Game Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "summary": "Update game",
+        "tags": [
+          "Games"
+        ],
+        "operationId": "Updategame",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+          "name": "gameId",
+          "type": "integer",
+          "required": true,
+          "description": "Book Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "summary": "Delete movie",
+        "tags": [
+          "Games"
+        ],
+        "operationId": "Deletegames",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+          "name": "gameId",
+          "type": "integer",
+          "required": true,
+          "description": "Book Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/games": {
+      "get": {
+        "description": "",
+        "summary": "Get all games",
+        "tags": [
+          "Games"
+        ],
+        "operationId": "Getallgames",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "summary": "Create game",
+        "tags": [
+          "Games"
+        ],
+        "operationId": "Creategame",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CreategameRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CreatebookRequest": {
+      "title": "CreatebookRequest",
+      "example": {
+        "isbn13": "1234567891011",
+        "title": "Fred's definite cook book",
+        "description": "",
+        "pages": 123,
+        "edition": "First Edition",
+        "releaseDate": "2020-11-01",
+        "creators": [
+          {
+            "name": "Frederik Lundbeck Jørgensen"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "isbn13": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "pages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "edition": {
+          "type": "string"
+        },
+        "releaseDate": {
+          "type": "string"
+        },
+        "creators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Creator"
+          }
+        }
+      },
+      "required": [
+        "isbn13",
+        "title",
+        "description",
+        "pages",
+        "edition",
+        "releaseDate",
+        "creators"
+      ]
+    },
+    "Creator": {
+      "title": "Creator",
+      "example": {
+        "name": "Frederik Lundbeck Jørgensen"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "UpdatebookRequest": {
+      "title": "UpdatebookRequest",
+      "example": {
+        "edition": "Second Edition (Special)",
+        "pages": 412
+      },
+      "type": "object",
+      "properties": {
+        "edition": {
+          "type": "string"
+        },
+        "pages": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "edition",
+        "pages"
+      ]
+    },
+    "CreatemovieRequest": {
+      "title": "CreatemovieRequest",
+      "example": {
+        "length": 12,
+        "formatTypeId": 1,
+        "title": "Fred's movie",
+        "description": "new movie",
+        "releaseDate": "2020-11-01",
+        "creators": [
+          {
+            "name": "Frederik Lundbeck Jørgensen"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "length": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "formatTypeId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "releaseDate": {
+          "type": "string"
+        },
+        "creators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Creator"
+          }
+        }
+      },
+      "required": [
+        "length",
+        "formatTypeId",
+        "title",
+        "description",
+        "releaseDate",
+        "creators"
+      ]
+    },
+    "UpdatebookRequest1": {
+      "title": "UpdatebookRequest1",
+      "example": {
+        "formatTypeId": 1
+      },
+      "type": "object",
+      "properties": {
+        "formatTypeId": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "formatTypeId"
+      ]
+    },
+    "CreategameRequest": {
+      "title": "CreategameRequest",
+      "example": {
+        "gameConsoleTypeId": 1,
+        "title": "Fred's game",
+        "description": "a fun new game!",
+        "releaseDate": "2021-05-02",
+        "creators": [
+          {
+            "name": "John"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "gameConsoleTypeId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "releaseDate": {
+          "type": "string"
+        },
+        "creators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Creator"
+          }
+        }
+      },
+      "required": [
+        "gameConsoleTypeId",
+        "title",
+        "description",
+        "releaseDate",
+        "creators"
+      ]
+    }
+  },
+  "tags": [
+    {
+      "name": "Books",
+      "description": ""
+    },
+    {
+      "name": "Movies",
+      "description": ""
+    },
+    {
+      "name": "Games",
+      "description": ""
+    }
+  ]
+}
