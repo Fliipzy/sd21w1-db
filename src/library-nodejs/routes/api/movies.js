@@ -52,4 +52,12 @@ router.put("/api/movies/:id", async (req, res) => {
     return res.json(result);
 });
 
+router.delete("/api/movies/:id", async (req, res) => {
+    const { id } = req.params;
+
+    const result = await movieService.deleteMovieById(id);
+    return res.json(result);
+});
+
+
 module.exports = router;
