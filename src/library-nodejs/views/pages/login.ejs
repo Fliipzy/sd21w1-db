@@ -32,15 +32,24 @@
 <script>
     $(document).ready(() => {
         
-        //prevent login form from refreshing
         $("#loginForm").submit(async e => {
-            //prevent form from refreshing page
+            // prevent form from refreshing page
             e.preventDefault();
 
-            //get inputs from login form
+            // get inputs from login form
             const formInputs = $("#loginForm").serializeArray();
 
+            // try to authenticate the user credentials
             const result = await authenticate(formInputs[0].value, formInputs[1].value);
+
+            if (result) {
+                // store tokens as cookies
+                document.cookie = "access_token=" + result.accessToken;
+                document.cookie = "refresh_token=" + result.refreshToken;
+
+                // redirect to index page
+                window.location.pathname = "/";
+            }
         });
 
     });

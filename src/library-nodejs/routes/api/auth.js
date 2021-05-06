@@ -10,12 +10,11 @@ router.post("/api/login", async (req, res) => {
 		return res.status(400).send({ response: false });
 	}
 
-	// use authService to authenticate credentials
+	// use authService to get a signed tokens
 	const result = await authService.authenticate(username, password);
+
 	if (result) {
-		// add user object to session
-		req.session.user = { id: result.id, roles: result.roles };
-		return res.status(200).send({ response: true });
+		return res.json({ accessToken: result.accessToken, refreshToken: result.refreshToken });
 	}
 
 	// return 401 Unauthorized with bad credentials as reason
@@ -23,13 +22,7 @@ router.post("/api/login", async (req, res) => {
 });
 
 router.get("/api/logout", (req, res) => {
-	try {
-		// try to delete session user object
-		delete req.session.user;
-		return res.status(200).send({ response: true });
-	} catch (error) {
-		return res.status(400).send({ response: false });
-	}
+	
 });
 
 module.exports = router;

@@ -17,9 +17,9 @@ async function authenticate(username, password) {
 
 	const data = await result.json();
 
-	if (data.response && result.status == 200) {
-		return window.location = "/";
+	if (data && result.status == 200) {
+		return data;
 	} else {
-		return data.response;
+		return null;
 	}
 }

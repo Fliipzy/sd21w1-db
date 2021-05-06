@@ -4,10 +4,12 @@ const appConfig = {
 	bcryptConfig: {
 		saltRounds: 12,
 	},
-	sessionConfig: {
+	jwtConfig: {
 		secret: "secret",
-		resave: false,
-		saveUninitialized: true
+		options: {
+			algorithm: "HS256",
+			expiresIn: "30m"
+		}
 	},
 	rateLimitConfig: {
 		windowMs: 15 * 60 * 1000,
