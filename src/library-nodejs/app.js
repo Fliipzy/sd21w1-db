@@ -32,6 +32,8 @@ app.use(require("./routes/api/users.js"));
 app.use(require("./routes/api/books.js"));
 app.use(require("./routes/api/movies.js"));
 app.use(require("./routes/api/games.js"));
+app.use(require("./routes/api/storedProcedure.js"));
+
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
