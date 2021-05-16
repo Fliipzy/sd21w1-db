@@ -9,7 +9,6 @@ app.set("view engine", "ejs");
 
 const config = require("./config/appConfig.js");
 
-
 // knex & objection configuration
 const { Model } = require("objection");
 const Knex = require("knex");
@@ -34,17 +33,28 @@ app.use(require("./routes/api/movies.js"));
 app.use(require("./routes/api/games.js"));
 app.use(require("./routes/api/storedProcedure.js"));
 
-
+// swagger documentation
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-const serverPort = config.port;
+// mongoose connection
+const mongoConfig = require("./config/databaseConfig.js").mongodbConfig;
+const mongoose = require("mongoose");
 
-app.listen(serverPort, (error) => {
-	if (error) {
-		console.log(error);
-	}
-	console.log(`listening on: ${serverPort}`);
-});
+mongoose.connect(mongoConfig.url + "/" + mongoConfig.databaseName, { useNewUrlParser: true, useUnifiedTopology: true })
+	.then((result) => startServer())
+	.catch((error) => console.log(error));
+
+
+function startServer() {
+	const serverPort = config.port;
+	
+	app.listen(serverPort, (error) => {
+		if (error) {
+			console.log(error);
+		}
+		console.log("Started HTTP server, listening on port", serverPort);
+	});
+}

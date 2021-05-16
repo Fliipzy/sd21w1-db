@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const Users = require("../models/User.js");
 const jwt = require('jsonwebtoken');
 const { jwtConfig } = require("../config/appConfig.js");
+const RefreshToken = require("../models/mongoose/RefreshToken.js");
 
 async function authenticate(username, password) {
 	try {
@@ -28,8 +29,10 @@ async function authenticate(username, password) {
 				// create an access & refresh token
 				const accessToken = generateJwt(payload, jwtConfig.options);
 				const refreshToken = generateJwt(payload);
-
-				refreshTokens.push(refreshToken);
+				
+				// create new refresh token & save it to mongodb
+				const refreshTokenDocument = new RefreshToken({ token: refreshToken, userId: user.id });
+				await refreshTokenDocument.save();
 
 				return { accessToken, refreshToken};
 			}
@@ -39,8 +42,6 @@ async function authenticate(username, password) {
 	}
 	return null;
 }
-
-let refreshTokens = [];
 
 /**
  * Middleware function that verifies the validity of the jwt, provided by the client.
@@ -62,16 +63,24 @@ function verifyToken(req, res, next) {
 		return res.sendStatus(401);
 	}
 
-	jwt.verify(token, jwtConfig.secret, (error, decoded) => {
+	jwt.verify(token, jwtConfig.secret, async (error, decoded) => {
 
 		if (error) {
 			// if the token has expired
 			if (error instanceof jwt.TokenExpiredError) {
+
 				// check if client has a refresh token, then check if it exists in refreshTokens
-				if (cookies.refresh_token && refreshTokens.some(r => r == cookies.refresh_token)) {
-					const { id, username, roles } = jwt.decode(token);
-					res.cookie("access_token", generateJwt({ id, username, roles }, jwtConfig.options));
-					return next();
+				if (cookies.refresh_token) {
+
+					const refreshToken = await RefreshToken.findOne({ token: cookies.refresh_token });
+
+					// if refresh token exists, issue new access token to user
+					if (refreshToken) {
+						const { id, username, roles } = jwt.decode(token);
+						res.cookie("access_token", generateJwt({ id, username, roles }, jwtConfig.options));
+						return next();
+					}
+					return res.sendStatus(403);
 				}
 			}
 

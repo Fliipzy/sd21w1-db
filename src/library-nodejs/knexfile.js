@@ -1,4 +1,4 @@
-const credentials = require("./config/databaseConfig.js")
+const credentials = require("./config/databaseConfig.js").mysqlConfig
 const { knexSnakeCaseMappers } = require('objection');
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
       database: credentials.database,
       user:     credentials.user,
       password: credentials.password,
-      host: credentials.host
+      host:     credentials.host
     },
     seeds: {
       directory: './db/seeds/'

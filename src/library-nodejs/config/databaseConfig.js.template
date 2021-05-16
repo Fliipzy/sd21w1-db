@@ -1,6 +1,12 @@
 module.exports = {
-	host: "",
-    user: "",
-    password: "",
-    database: ""
+    mysqlConfig: {
+        host: "",
+        user: "",
+        password: "",
+        database: ""
+    },
+    mongodbConfig: {
+        url: "mongodb://localhost:27017,localhost:27017",
+        databaseName: "library" 
+    }
 }
