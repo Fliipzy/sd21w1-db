@@ -44,11 +44,11 @@ const mongoConfig = require("./config/databaseConfig.js").mongodbConfig;
 const mongoose = require("mongoose");
 
 mongoose.connect(mongoConfig.url + "/" + mongoConfig.databaseName, { useNewUrlParser: true, useUnifiedTopology: true })
-	.then((result) => startServer())
+	.then((result) => startExpressServer())
 	.catch((error) => console.log(error));
 
 
-function startServer() {
+function startExpressServer() {
 	const serverPort = config.port;
 	
 	app.listen(serverPort, (error) => {

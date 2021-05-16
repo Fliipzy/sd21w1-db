@@ -22,7 +22,8 @@ router.post("/api/login", async (req, res) => {
 });
 
 router.get("/api/logout", (req, res) => {
-	
+	authService.deleteRefreshToken(req.cookies.refresh_token);
+	return res.status(200).send({ response: true });
 });
 
 module.exports = router;

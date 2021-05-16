@@ -91,11 +91,18 @@ function verifyToken(req, res, next) {
 	});
 }
 
+function deleteRefreshToken(refreshToken) {
+	RefreshToken.deleteOne({ token: refreshToken })
+		.then(() => { return true })
+		.catch(() => { return false });
+}
+
 function generateJwt(payload, options = null) {
 	return jwt.sign(payload, jwtConfig.secret, options);
 }
 
 module.exports = {
 	authenticate: authenticate,
-	verifyToken: verifyToken
+	verifyToken: verifyToken,
+	deleteRefreshToken: deleteRefreshToken
 }
