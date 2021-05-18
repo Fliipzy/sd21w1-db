@@ -5,9 +5,6 @@ const creatorSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		unique: true
-	},
-	description: {
-		type: String
 	}
 });
 

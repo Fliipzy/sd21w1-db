@@ -15,7 +15,7 @@ const bookSchema = new mongoose.Schema({
 		type: Number,
 		required: true
 	},
-	material: {
+	materialId: {
 		type: mongoose.Types.ObjectId,
 		required: true
 	}
