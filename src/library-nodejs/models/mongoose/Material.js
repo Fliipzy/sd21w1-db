@@ -16,7 +16,7 @@ const materialSchema = new mongoose.Schema({
 		type: String
 	},
 	materialType: {
-		type: mongoose.Types.ObjectId,
+		type: Number,
 		ref: "MaterialType",
 		required: true
 	},
