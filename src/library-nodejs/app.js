@@ -34,6 +34,9 @@ app.use(require("./routes/api/games.js"));
 app.use(require("./routes/api/storedProcedure.js"));
 
 app.use(require("./routes/api/mongo/books.js"));
+app.use(require("./routes/api/mongo/movies"));
+app.use(require("./routes/api/mongo/games.js"));
+app.use(require("./routes/api/mongo/users.js"));
 
 // swagger documentation
 const swaggerUi = require('swagger-ui-express');
