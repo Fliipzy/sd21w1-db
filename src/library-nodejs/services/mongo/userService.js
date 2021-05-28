@@ -16,9 +16,14 @@ async function updateUser(id, user) {
 	return await User.updateOne({ id: id }, user);
 }
 
+async function deleteUser(id) {
+	return await User.deleteOne({ id: id });
+}
+
 module.exports = {
 	getAllUsers: getAllUsers,
 	findUserById: findUserById,
 	createUser: createUser,
-	updateUser: updateUser
+	updateUser: updateUser,
+	deleteUser: deleteUser
 };

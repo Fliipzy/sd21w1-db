@@ -22,7 +22,8 @@ async function updateMovie(id, movie) {
 }
 
 async function deleteMovie(id) {
-	return await Movie.deleteOne({ id: id });
+	const movieDocument = await Movie.findOne({ _id: id });
+	return await movieDocument.deleteOne({ _id: id });
 }
 
 

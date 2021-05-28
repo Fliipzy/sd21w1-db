@@ -37,6 +37,8 @@ app.use(require("./routes/api/mongo/books.js"));
 app.use(require("./routes/api/mongo/movies"));
 app.use(require("./routes/api/mongo/games.js"));
 app.use(require("./routes/api/mongo/users.js"));
+app.use(require("./routes/api/mongo/creators.js"));
+app.use(require("./routes/api/mongo/materials.js"));
 
 // swagger documentation
 const swaggerUi = require('swagger-ui-express');
@@ -48,7 +50,11 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 const mongoConfig = require("./config/databaseConfig.js").mongodbConfig;
 const mongoose = require("mongoose");
 
-mongoose.connect(mongoConfig.url + "/" + mongoConfig.databaseName, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoConfig.url + "/" + mongoConfig.databaseName,
+	{
+		useNewUrlParser: true,
+		useUnifiedTopology: true
+	})
 	.then((result) => startExpressServer())
 	.catch((error) => console.log(error));
 

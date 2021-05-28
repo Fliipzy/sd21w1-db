@@ -46,15 +46,12 @@ router.post("/api/mongo/games", async (req, res) => {
 
 router.put("/api/mongo/games/:id", async (req, res) => {
 	const id = req.params.id;
-	const gameDocument = await gameService.updateBook(id, req.body);
+	const updatedResult = await gameService.updateGame(id, req.body);
 
-	if (gameDocument) {
-		let materialDocument = await materialService.findMaterialById(gameDocument.materialId);
-		let gameObject = gameDocument.toObject();
-		gameObject.material = materialDocument.toObject();
-		return res.json(gameObject);
+	if (updatedResult == 0) {
+		return res.sendStatus(400);
 	}
-	return res.status(400);
+	return res.sendStatus(200);
 });
 
 router.delete("/api/mongo/games/:id", async (req, res) => {

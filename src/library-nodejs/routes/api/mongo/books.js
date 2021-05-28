@@ -23,7 +23,7 @@ router.get("/api/mongo/books/:id", async (req, res) => {
 		bookObject.material = materialDocument.toObject();
 		return res.json(bookObject);
 	}
-	return res.status(204); //No Content
+	return res.sendStatus(204); //No Content
 });
 
 router.post("/api/mongo/books", async (req, res) => {
@@ -51,30 +51,27 @@ router.post("/api/mongo/books", async (req, res) => {
 	} catch (error) {
 		console.log(error);
 	}
-	return res.status(400); //Bad Request
+	return res.sendStatus(400); //Bad Request
 });
 
 router.put("/api/mongo/books/:id", async (req, res) => {
 	const id = req.params.id;
-	const bookDocument = await bookService.updateBook(id, req.body);
+	const updateResult = await bookService.updateBook(id, req.body);
 
-	if (bookDocument) {
-		let materialDocument = await materialService.findMaterialById(bookDocument.materialId);
-		let bookObject = bookDocument.toObject();
-		bookObject.material = materialDocument.toObject();
-		return res.json(bookObject);
+	if (updateResult.nModified == 0) {
+		return res.sendStatus(400);
 	}
-	return res.status(400);
+	return res.sendStatus(200);
 });
 
 router.delete("/api/mongo/books/:id", async (req, res) => {
 	const id = req.params.id;
 	const result = await bookService.deleteBook(id);
 	
-	if (result.ok) {
-		return res.status(200);
+	if (result.deletedCount == 0) {
+		return res.sendStatus(400);
 	}
-	return res.status(400);
+	return res.sendStatus(200);
 });
 
 module.exports = router;

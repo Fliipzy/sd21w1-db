@@ -37,4 +37,14 @@ router.put("/api/mongo/users/:id", async (req, res) => {
 	return res.status(400);
 });
 
+router.delete("/api/mongo/users/:id", async (req, res) => {
+	const id = req.params.id;
+	const result = await userService.deleteUser(id);
+
+	if (result.deletedCount == 0) {
+		return res.status(400);
+	}
+	return res.status(200);
+});
+
 module.exports = router;

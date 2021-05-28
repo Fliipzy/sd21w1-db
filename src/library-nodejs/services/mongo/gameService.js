@@ -43,11 +43,12 @@ async function createGame(game) {
 }
 
 async function updateGame(id, game) {
-	return await Game.updateOne({ id: id }, game);
+	return await Game.updateOne({ _id: id }, game);
 }
 
 async function deleteGame(id) {
-	return await Game.deleteOne({ id: id });
+	const gameDocument = await Game.findOne({ _id: id });
+	return await gameDocument.deleteOne({ _id: id });
 }
 
 

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Material = require("./Material.js");
 
 const bookSchema = new mongoose.Schema({
 	edition: {
@@ -20,6 +21,13 @@ const bookSchema = new mongoose.Schema({
 		required: true
 	}
 }, { timestamps: true });
+
+// cascading delete middleware
+bookSchema.pre("deleteOne", { document: true, query: false }, async function (next) {
+	const materialDocument = await Material.findOne({ _id: this.materialId });
+	await materialDocument.deleteOne();
+	next();
+});
 
 const Book = mongoose.model("Book", bookSchema);
 

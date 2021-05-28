@@ -20,7 +20,6 @@ async function createBook(book) {
 	delete book.material;
 	let creatorIds = [];
 
-
 	for (let index = 0; index < material.creators.length; index++) {
 		const creatorName = material.creators[index];
 		const creator = await Creator.findOne({ name: creatorName });
@@ -45,11 +44,12 @@ async function createBook(book) {
 }
 
 async function updateBook(id, book) {
-	return await Book.updateOne({ id: id }, book);
+	return await Book.updateOne({ _id: id }, book);
 }
 
 async function deleteBook(id) {
-	return await Book.deleteOne({ id: id });
+	const bookDocument = await Book.findOne({ _id: id });
+	return bookDocument.deleteOne({ _id: id });
 }
 
 
