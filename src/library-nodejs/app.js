@@ -23,6 +23,12 @@ app.use(require("./routes/controllers/index.js"));
 app.use(require("./routes/controllers/auth.js"));
 app.use(require("./routes/api/auth.js"));
 
+// swagger documentation
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 // middleware for verifying the json web token
 app.use(require("./services/authService").verifyToken);
 
@@ -40,11 +46,6 @@ app.use(require("./routes/api/mongo/users.js"));
 app.use(require("./routes/api/mongo/creators.js"));
 app.use(require("./routes/api/mongo/materials.js"));
 
-// swagger documentation
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // mongoose connection
 const mongoConfig = require("./config/databaseConfig.js").mongodbConfig;
