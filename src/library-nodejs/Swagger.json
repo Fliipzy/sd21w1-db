@@ -1,13 +1,20 @@
+
 {
   "swagger": "2.0",
   "info": {
     "version": "1.0",
     "title": "Library",
-    "description": "TODO: Add Description",
     "contact": {}
   },
   "host": "localhost:3000",
   "basePath": "/api",
+  "securityDefinitions": {
+    "JWT": {
+			"type": "apiKey",
+			"in": "query",
+      "name": "Type Bearer {token}. get access token from /login"
+		}
+  },
   "schemes": [
     "http"
   ],
@@ -18,28 +25,49 @@
     "application/json"
   ],
   "paths": {
-    "/books/{bookId}": {
-      "get": {
-        "description": "",
-        "summary": "Get book",
+    "/login": {
+      "post": {
+        "summary": "Login",
         "tags": [
-          "Books"
+          "Auth"
         ],
-        
-        "operationId": "Getbook",
+        "operationId": "Login",
         "deprecated": false,
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-          "in": "path",
-          "name": "bookId",
-          "type": "integer",
-          "required": true,
-          "description": "Book Id"
-        }
-      ],
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/LoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/books/8": {
+      "get": {
+        "summary": "Get book",
+        "tags": [
+          "Books"
+        ],
+        "operationId": "Getbook",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
         "responses": {
           "200": {
             "description": "",
@@ -48,7 +76,6 @@
         }
       },
       "put": {
-        "description": "",
         "summary": "Update book",
         "tags": [
           "Books"
@@ -59,13 +86,6 @@
           "application/json"
         ],
         "parameters": [
-          {
-            "in": "path",
-          "name": "bookId",
-          "type": "integer",
-          "required": true,
-          "description": "Book Id"
-          },
           {
             "name": "Body",
             "in": "body",
@@ -84,7 +104,6 @@
         }
       },
       "delete": {
-        "description": "",
         "summary": "Delete book",
         "tags": [
           "Books"
@@ -94,15 +113,7 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "in": "path",
-          "name": "bookId",
-          "type": "integer",
-          "required": true,
-          "description": "Book Id"
-          }
-        ],
+
         "responses": {
           "200": {
             "description": "",
@@ -113,7 +124,6 @@
     },
     "/books": {
       "get": {
-        "description": "",
         "summary": "Get all books",
         "tags": [
           "Books"
@@ -123,7 +133,7 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [],
+
         "responses": {
           "200": {
             "description": "",
@@ -132,7 +142,6 @@
         }
       },
       "post": {
-        "description": "",
         "summary": "Create book",
         "tags": [
           "Books"
@@ -161,26 +170,26 @@
         }
       }
     },
-    
-    "/movies/{movieId}": {
-      "get": {
-        "description": "",
-        "summary": "Get movie",
+    "/mongo/books": {
+      "post": {
+        "summary": "Create book1",
         "tags": [
-          "Movies"
+          "Mongo Books"
         ],
-        "operationId": "Getmovie",
+        "operationId": "Createbook1",
         "deprecated": false,
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "in": "path",
-            "name": "movieId",
-            "type": "integer",
+            "name": "Body",
+            "in": "body",
             "required": true,
-            "description": "Movie Id"
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CreatebookRequest1"
+            }
           }
         ],
         "responses": {
@@ -190,8 +199,112 @@
           }
         }
       },
+      "get": {
+        "summary": "Get all books",
+        "tags": [
+          "Mongo Books"
+        ],
+        "operationId": "Getallbooks",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete book",
+        "tags": [
+          "Mongo Books"
+        ],
+        "operationId": "Deletebook",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/mongo/books/60a539ba4a3c295c2848b04e": {
+      "get": {
+        "summary": "Get book",
+        "tags": [
+          "Mongo Books"
+        ],
+        "operationId": "Getbook",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/mongo/books/60a56f17f3d24f0834e4b0f1": {
       "put": {
-        "description": "",
+        "summary": "Update book",
+        "tags": [
+          "Mongo Books"
+        ],
+        "operationId": "Updatebook",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UpdatebookRequest2"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/movies/1": {
+      "get": {
+        "summary": "Get movie",
+        "tags": [
+          "Movies"
+        ],
+        "operationId": "Getmovie",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
         "summary": "Update book",
         "tags": [
           "Movies"
@@ -202,13 +315,6 @@
           "application/json"
         ],
         "parameters": [
-          {
-            "in": "path",
-          "name": "movieId",
-          "type": "integer",
-          "required": true,
-          "description": "Movie id"
-          },
           {
             "name": "Body",
             "in": "body",
@@ -227,7 +333,6 @@
         }
       },
       "delete": {
-        "description": "",
         "summary": "Delete movie",
         "tags": [
           "Movies"
@@ -237,15 +342,7 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "movieId",
-            "type": "integer",
-            "required": true,
-            "description": "Movie Id"
-          }
-        ],
+
         "responses": {
           "200": {
             "description": "",
@@ -256,7 +353,6 @@
     },
     "/movies": {
       "get": {
-        "description": "",
         "summary": "Get all movies",
         "tags": [
           "Movies"
@@ -266,7 +362,7 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [],
+
         "responses": {
           "200": {
             "description": "",
@@ -275,7 +371,6 @@
         }
       },
       "post": {
-        "description": "",
         "summary": "Create movie",
         "tags": [
           "Movies"
@@ -286,6 +381,7 @@
           "application/json"
         ],
         "parameters": [
+
           {
             "name": "Body",
             "in": "body",
@@ -304,9 +400,82 @@
         }
       }
     },
-    "/games/{gameId}": {
+    "/mongo/movies": {
       "get": {
-        "description": "",
+        "summary": "Get all movies",
+        "tags": [
+          "Mongo Movies"
+        ],
+        "operationId": "Getallmovies",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "summary": "Create movie",
+        "tags": [
+          "Mongo Movies"
+        ],
+        "operationId": "PostCreatemovie",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "summary": "Update movie",
+        "tags": [
+          "Mongo Movies"
+        ],
+        "operationId": "Updatemovie",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete movie",
+        "tags": [
+          "Mongo Movies"
+        ],
+        "operationId": "Deletemovie",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/games/1": {
+      "get": {
         "summary": "Get game",
         "tags": [
           "Games"
@@ -316,15 +485,7 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "gameId",
-            "type": "integer",
-            "required": true,
-            "description": "Game Id"
-          }
-        ],
+
         "responses": {
           "200": {
             "description": "",
@@ -333,7 +494,6 @@
         }
       },
       "put": {
-        "description": "",
         "summary": "Update game",
         "tags": [
           "Games"
@@ -343,42 +503,7 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "in": "path",
-          "name": "gameId",
-          "type": "integer",
-          "required": true,
-          "description": "Book Id"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "summary": "Delete movie",
-        "tags": [
-          "Games"
-        ],
-        "operationId": "Deletegames",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-          "name": "gameId",
-          "type": "integer",
-          "required": true,
-          "description": "Book Id"
-          }
-        ],
+
         "responses": {
           "200": {
             "description": "",
@@ -389,7 +514,6 @@
     },
     "/games": {
       "get": {
-        "description": "",
         "summary": "Get all games",
         "tags": [
           "Games"
@@ -399,7 +523,7 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [],
+
         "responses": {
           "200": {
             "description": "",
@@ -408,7 +532,6 @@
         }
       },
       "post": {
-        "description": "",
         "summary": "Create game",
         "tags": [
           "Games"
@@ -419,6 +542,7 @@
           "application/json"
         ],
         "parameters": [
+
           {
             "name": "Body",
             "in": "body",
@@ -436,9 +560,277 @@
           }
         }
       }
+    },
+    "/games/16": {
+      "delete": {
+        "summary": "Delete movie",
+        "tags": [
+          "Games"
+        ],
+        "operationId": "Deletemovie12",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/mongo/games": {
+      "get": {
+        "summary": "Get all games",
+        "tags": [
+          "Mongo Games"
+        ],
+        "operationId": "Getallgames",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "summary": "Create game",
+        "tags": [
+          "Mongo Games"
+        ],
+        "operationId": "PostCreategame",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "summary": "Update game",
+        "tags": [
+          "Mongo Games"
+        ],
+        "operationId": "Updategame",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete game",
+        "tags": [
+          "Mongo Games"
+        ],
+        "operationId": "Deletegame",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/mongo/users": {
+      "get": {
+        "summary": "Get all users",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "Getallusers",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "summary": "Create user",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "Createuser",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "summary": "Update user",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "Updateuser",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete user",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "Deleteuser",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/mongo/refreshTokens": {
+      "get": {
+        "summary": "Get all refresh tokens",
+        "tags": [
+          "Refresh Tokens"
+        ],
+        "operationId": "Getallrefreshtokens",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/mongo/materials": {
+      "get": {
+        "summary": "Get all materials",
+        "tags": [
+          "Materials"
+        ],
+        "operationId": "Getallmaterials",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/mongo/creators": {
+      "get": {
+        "summary": "Get all creators",
+        "tags": [
+          "Creators"
+        ],
+        "operationId": "Getallcreators",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/mongo/creators/60b0cb2f72c093342475c3c1": {
+      "get": {
+        "summary": "Get creator",
+        "tags": [
+          "Creators"
+        ],
+        "operationId": "Getcreator",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
     }
   },
   "definitions": {
+    "LoginRequest": {
+      "title": "LoginRequest",
+      "example": {
+        "username": "Frederik",
+        "password": "Lundbeck1993"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "password"
+      ]
+    },
     "CreatebookRequest": {
       "title": "CreatebookRequest",
       "example": {
@@ -635,20 +1027,142 @@
         "releaseDate",
         "creators"
       ]
+    },
+    "CreatebookRequest1": {
+      "title": "CreatebookRequest1",
+      "example": {
+        "isbn13": "9234361892341",
+        "pages": 261,
+        "edition": "Second edition",
+        "material": {
+          "title": "Huckleberry Finn",
+          "description": "A childrens book",
+          "releaseDate": "1952-08-01",
+          "creators": [
+            "Frederik Lundbeck",
+            "Wajid"
+          ]
+        }
+      },
+      "type": "object",
+      "properties": {
+        "isbn13": {
+          "type": "string"
+        },
+        "pages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "edition": {
+          "type": "string"
+        },
+        "material": {
+          "$ref": "#/definitions/Material"
+        }
+      },
+      "required": [
+        "isbn13",
+        "pages",
+        "edition",
+        "material"
+      ]
+    },
+    "Material": {
+      "title": "Material",
+      "example": {
+        "title": "Huckleberry Finn",
+        "description": "A childrens book",
+        "releaseDate": "1952-08-01",
+        "creators": [
+          "Frederik Lundbeck",
+          "Wajid"
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "releaseDate": {
+          "type": "string"
+        },
+        "creators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "releaseDate",
+        "creators"
+      ]
+    },
+    "UpdatebookRequest2": {
+      "title": "UpdatebookRequest2",
+      "example": {
+        "isbn13": "9234361892341",
+        "pages": 261,
+        "edition": "NEW EDITION"
+      },
+      "type": "object",
+      "properties": {
+        "isbn13": {
+          "type": "string"
+        },
+        "pages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "edition": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "isbn13",
+        "pages",
+        "edition"
+      ]
     }
   },
   "tags": [
     {
-      "name": "Books",
-      "description": ""
+      "name": "Auth"
     },
     {
-      "name": "Movies",
-      "description": ""
+      "name": "Books"
     },
     {
-      "name": "Games",
-      "description": ""
+      "name": "Mongo Books"
+    },
+    {
+      "name": "Movies"
+    },
+    {
+      "name": "Mongo Movies"
+    },
+    {
+      "name": "Games"
+    },
+    {
+      "name": "Mongo Games"
+    },
+    {
+      "name": "Users"
+    },
+    {
+      "name": "Refresh Tokens"
+    },
+    {
+      "name": "Materials"
+    },
+    {
+      "name": "Creators"
     }
   ]
 }
