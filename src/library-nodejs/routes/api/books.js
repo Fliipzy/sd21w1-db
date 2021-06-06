@@ -31,7 +31,7 @@ router.post("/api/books", async (req, res) => {
         creators: creators
     }
 
-    const result = await (await bookService.createBook(book));
+    const result = await bookService.createBook(book);
 
     if (result) {
         return res.status(200).json(result);

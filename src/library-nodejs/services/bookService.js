@@ -22,7 +22,8 @@ async function createBook(book = { material: { title, description, releaseDate, 
 
         const trxResult = await Book.transaction(async trx => {
             try {
-                const result = await Book.query(trx).insertGraph(book, {relate: true});
+                const result = await Book.query(trx)
+                    .insertGraph(book, {relate: true});
                 return result;
             } catch (error) {
                 trx.rollback();

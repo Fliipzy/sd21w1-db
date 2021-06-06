@@ -9,25 +9,28 @@ const Loan = require("../models/Loan.js");
  */
 async function createLoan(userId, dueDate, materialsIds) {
 	try {
-		const trxResult = Loan.transaction(async trx => {
+		const trxResult = await Loan.transaction(async trx => {
 			try {
 				// insert with insertGraph to handle loan & material__loan inserts in one call
-				const result = Loan.query(trx)
-					.insertGraph({userId, dueDate, materials: materialsIds}, { relate: true });
+				const result = await Loan.query(trx)
+					.insertGraph({ userId, dueDate, materials: materialsIds }, { relate: true });
 				
-				// handle stuff here that needs to happen if loan is created successfully
-				if (result) {
-					
-				}
+				return result;
 			}
 			catch (error) {
 				trx.rollback();
+				return null;
 			}
 		});
-		
+		return trxResult;
 	} catch (exception) {
 		console.log(exception);
+		return null;
 	}
+}
+
+async function getAllLoans() {
+	return await Loan.query();
 }
 
 async function getLoansByUser(userId, ...relations) {
@@ -43,5 +46,6 @@ async function getLoansByUser(userId, ...relations) {
 
 module.exports = {
 	createLoan: createLoan,
+	getAllLoans: getAllLoans,
 	getLoansByUser: getLoansByUser
 };

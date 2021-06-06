@@ -18,11 +18,12 @@ async function createGame(game = { gameConsoleTypeId, material: { title, descrip
             }
         }
 
-        const trxResult = await Game.transaction(async trx => {
+        const trxResult = await Game.transaction(trx => {
             try {
-                const result = await Game.query(trx).insertGraph(game, { relate: true });
+                const result = Game.query(trx).insertGraph(game, { relate: true });
                 return result;
-            } catch (error) {
+            } 
+            catch (error) {
                 trx.rollback();
                 console.log(error);
             }

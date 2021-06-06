@@ -33,10 +33,11 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(require("./services/authService").verifyToken);
 
 app.use(require("./routes/api/materials.js"));
-app.use(require("./routes/api/users.js"));
 app.use(require("./routes/api/books.js"));
 app.use(require("./routes/api/movies.js"));
 app.use(require("./routes/api/games.js"));
+app.use(require("./routes/api/loans.js"))
+app.use(require("./routes/api/users.js"));
 app.use(require("./routes/api/storedProcedure.js"));
 
 app.use(require("./routes/api/mongo/books.js"));

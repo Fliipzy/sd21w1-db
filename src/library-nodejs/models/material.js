@@ -8,6 +8,7 @@ class Material extends Model{
         const Creator = require("./Creator.js");
         const MaterialStock = require("./MaterialStock.js");
         const MaterialAgeType = require("./MaterialAgeType.js");
+        const Loan = require("./Loan.js");
 
         return {
             genres: {
@@ -48,6 +49,18 @@ class Material extends Model{
                 join: {
                     from: "material.material_age_type_id",
                     to: "material_age_type.id"
+                }
+            },
+            loans: {
+                relation: Model.ManyToManyRelation,
+                modelClass: Creator,
+                join: {
+                    from: "material.id",
+                    through: {
+                        from: "material__loan.material_id",
+                        to: "material__loan.loan_id"
+                    },
+                    to: "loan.id"
                 }
             }
         }
